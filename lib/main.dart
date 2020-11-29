@@ -1,31 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'home.dart';
+import 'login.dart';
+import 'signin.dart';
+import 'package:newproject/login.dart';
+import 'package:newproject/signin.dart';
+import 'package:newproject/home.dart';
 
-void main() {
-  runApp(new MaterialApp(
-    home: new MyApp(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  // Crashlytics.instance.enableInDevMode = true;
+  // FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _State createState() => new _State();
-}
+class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
 
-class _State extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Name here'),
-      ),
-      body: new Container(
-        padding: new EdgeInsets.all(32.0),
-        child: new Column(
-          children: <Widget>[
-            new Text('Add Widgets Here')
-          ],
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Login(),
+      routes: {'/signup': (_) => Signin(), '/homepage': (_) => HomePage()},
     );
   }
 }
